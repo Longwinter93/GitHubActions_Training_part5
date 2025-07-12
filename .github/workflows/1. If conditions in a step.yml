@@ -1,4 +1,4 @@
-name: If conditions
+name: If conditions in a step
 on:
   push:
     branches:
@@ -52,6 +52,10 @@ jobs:
         with:
           name: test-report
           path: test.json
+#On the Github Action in this workflow and this step,
+#we can see that a Test Code step fails, but Upload test report step was run and not skipped
+#We obtain artifacts, because we clearly specify that uploading test reports step should only run
+#if that step fails
   build:
     needs: test
     runs-on: ubuntu-latest
