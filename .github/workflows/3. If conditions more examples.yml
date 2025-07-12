@@ -35,7 +35,6 @@ jobs:
       - name: Test code
         id: run-tests
         run: npm run test
-#We ensure that this step runs even if previous step fails
       - name: Upload test report
         if: failure() && steps.run-tests.outcome == 'failure'
         uses: actions/upload-artifact@v4
@@ -76,12 +75,6 @@ jobs:
         run: ls
       - name: Deploy
         run: echo "Deploying..."
-#We put a condition in a job level.
-#This job runs only if some other job failed
-#We add failure() function to make sure that this job runs provided that any other jobs failed
-#Technically, a failure() function returns true if any other jobs fails.
-#We need to add needs context. Currently, it evaluates if any other jobs [lint, deploy] in front of that job has failed,
-#We put in needs context only two jobs, because deploy jobs run only if build runs. There are dependencies
   report:
     needs: [lint, deploy]
     if: failure()
@@ -91,5 +84,3 @@ jobs:
           run: |
             echo 'Something went wrong'
             echo '${{ toJSON(github) }}'
-#On the GitHub Action, a graph changed.
-#a report job depends on lint and the result of the entire job chain
