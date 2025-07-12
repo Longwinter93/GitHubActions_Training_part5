@@ -80,7 +80,10 @@ jobs:
 #This job runs only if some other job failed
 #We add failure() function to make sure that this job runs provided that any other jobs failed
 #Technically, a failure() function returns true if any other jobs fails.
+#We need to add needs context. Currently, it evaluates if any other jobs [lint, deploy] in front of that job has failed,
+#We put in needs context only two jobs, because deploy jobs run only if build runs. There are dependencies
   report:
+    needs: [lint, deploy]
     if: failure()
     runs-on: ubuntu-latest
     steps:
