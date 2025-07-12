@@ -107,3 +107,7 @@ jobs:
 
 #I run npm ci on the terminal to Install dependencies
 #We can see we have a folder node_modules that contains all dependencies
+#We use this folder node_modules that we cached all dependencies that are taken from this folder
+#After second running, in a test job, a Install dependencies step was skipped 
+#As we can see, it is possible to use if conditions to check that results were produced by anothe steps
+#it depends on we either execute that step or not
