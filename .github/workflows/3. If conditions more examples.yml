@@ -4,20 +4,35 @@ on:
   push:
     branches:
       - main
+#To speed up this job, we ache the entire node_modules folder that is the local folder (created by running npm ci)
+#It has all dependencies of this project in this folder
+#We do not want to run a npm ci step if we restore that folder
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
         uses: actions/checkout@v3
+#We do not want to cache this global .npm folder, but instead we cache a local folder called node_modules
+#We remove ~/.npm from a path and change it to node_modules
+#We intend to skip this Install dependencies step if we successfully use our cache - we use dependencies from a node_module folder
       - name: Cache dependencies
         id: cache
         uses: actions/cache@v3
         with:
           path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+#To do that, we add a if condition to install this dependencies step - we reference to this step by id (Cache dependencies)
+#Thanks to this id - cache, we can get data from this step with the help of this id
+#According to docs, we use a cache action - cache-hit. It has an output. It has a boolean, but it is converted to string
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
+#We check if it not equal to true. If it is not true - we are not able to use the cache,
+#then I want to install dependencies manually again = run npm ci (install dependencies again)
+#However, if we have a cache-hit because it is equal to true
+#Thus, this step Install dependencies will be skipped with this condition, because we use dependencies from a node_moddules folder
+#which already exsits in repo
+#We put this on each job to use this extra condition
         run: npm ci
       - name: Lint code
         run: npm run lint
@@ -79,6 +94,7 @@ jobs:
         run: ls
       - name: Deploy
         run: echo "Deploying..."
+#this job won't be executed because all jobs will be executed positively
   report:
     needs: [lint, deploy]
     if: failure()
@@ -88,3 +104,6 @@ jobs:
           run: |
             echo 'Something went wrong'
             echo '${{ toJSON(github) }}'
+
+#I run npm ci on the terminal to Install dependencies
+#We can see we have a folder node_modules that contains all dependencies
