@@ -29,3 +29,5 @@ jobs:
         run: npm ci
       - name: Build project
         run: npm run build
+#We can see that in GitHub Action, we have a job with Ubuntu latest with node-version 18
+#But, we do not have a job with windows-latest with node-version 12
