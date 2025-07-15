@@ -34,3 +34,6 @@ jobs:
 #We can use it to test process that should run on different operating systems
 #To build applications against the different versions of node
 #On GitHub Actions it runs 6 jobs in parallel for this different combinations
+#As we can see, a few jobs failed because they do not support this version of node, for example
+#Thus, if a one job fails, the other jobs are cancelled. To prevent doing it, we should do continue-on-error
+#After adding continue-on-error, a few job succeed and a few ones failed

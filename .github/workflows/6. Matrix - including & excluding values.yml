@@ -1,0 +1,31 @@
+name: Matrix - Excl. Incl. Values 
+on: push
+jobs:
+  build:
+    continue-on-error: true
+    strategy:
+#Adding include key - reserved key - it allows us to add a list of key values that should be included 
+#To avoid using combinations
+      matrix:
+         node-version: [12, 14, 16]
+         operating-system: [ubuntu-latest, window-latest]
+         include:
+            - node-version: 18
+              operating-system: ubuntu-latest
+#We need to have only single combinations - node version 18 with ubuntu system - add standalone combination
+         exclude:
+            - node-version: 12
+              operating-system: windows-latest
+#This combination will be excluded node version in windows-latest - we do not want to use this combination
+    runs-on: ${{ matrix.operating-system }}
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Install NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies
+        run: npm ci
+      - name: Build project
+        run: npm run build
