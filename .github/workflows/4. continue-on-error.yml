@@ -89,3 +89,10 @@ jobs:
             echo 'Something went wrong'
             echo '${{ toJSON(github) }}'
 
+#We remove if check on upload test report
+#This workflow succeeded despite the a job test in a Test code step produce error 
+#The overall workflow succeed. Continue-on-error treats a Test code step as a success depsite it technically failing
+#We tell GitHub Action that even if we have an error we want to continue and treat this step as successful
+#Other jobs executed
+#If we want to the entire workflow to continue, even if that step fails - use continue-on-error
+#If we want to run some selected steps or jobs and not the overall workflow - use if checks
