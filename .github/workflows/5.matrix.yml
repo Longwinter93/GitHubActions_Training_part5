@@ -1,0 +1,32 @@
+name: Matrix Demo
+on: push
+jobs:
+  build:
+#We add matrix - we can run the same job with different configurations for example different node versions, operatin system
+    strategy:
+      matrix:
+#we can run this job for different values - we can specify multiple node versions or operatng systems
+         node-version: [12, 14, 16]
+         operating-system: [ubuntu-latest, window-latest]
+#Using matrix context - we tell GitHub Actions to run this build job multiple time per value in that list of operatin systems
+#It runs this job in ubuntu and windows operatin systems - it runs parallel by default
+    runs-on: ${{ matrix.operating-system }}
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Install NodeJS
+        uses: actions/setup-node@v4
+#Install different versions of node using matrix context
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies
+        run: npm ci
+      - name: Build project
+        run: npm run build
+
+#It is a matrix because this job will run for all combinations of these values:
+#Ubuntu latest and versions 12, 14, 16
+#Windows latest and versions 12, 14, 16
+#It allows us to run quickly the same job with different configurations
+#We can use it to test process that should run on different operating systems
+#To build applications against the different versions of node

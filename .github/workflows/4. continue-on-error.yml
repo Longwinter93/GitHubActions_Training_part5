@@ -96,3 +96,4 @@ jobs:
 #Other jobs executed
 #If we want to the entire workflow to continue, even if that step fails - use continue-on-error
 #If we want to run some selected steps or jobs and not the overall workflow - use if checks
+#In comparison to if condition - it fails in a Test code step and then another jobs also failed
