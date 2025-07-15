@@ -1,4 +1,4 @@
-name: Using Reusable Workflow
+name: Using a 7.ReusableWorkflows workflow
 on:
   push:
     branches:
@@ -83,3 +83,6 @@ jobs:
         run: | 
           echo "Something went wrong"
           echo "${{ toJSON(github) }}"
+
+#In a deploy jobs in this workflow on GitHub Action
+#We can see that it uses 7.ReusableWorkflows workflow in a deploy Job.

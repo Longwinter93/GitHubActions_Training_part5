@@ -1,0 +1,41 @@
+name: Reusable Workflow - Deploy
+#It allows this workflow to be called from other workflows
+#This workflows will be kicked off by GitHub Actions whenever a job deploy starts in a 7.ReusableWorkflows yml file
+#We can add additional information to it
+#We add inputs key - reversed key
+#Under inputs we specify what this reusable workflow needs / add any inputs this reusable workflow needs
+#We can add any inputs we want
+#We expect artifact-name, description of it <- what exactly is expected
+#required - true - the value of artifact name is needed
+#required - false - this workflow can be called without providing a value
+#We can add a default value - for example dist - we assume that if we do not get any other artifact name (line 16)
+#a dist value should be used in line 29 
+#type - what kind of value we expect
+on: 
+  workflow_call:
+    inputs:
+      artifact-name:
+        description: The name of the deployable artifact files
+        required: false
+        default: dist
+        type: string
+jobs:
+  deploy:
+    runs-on: ubuntu-latest 
+    steps:
+      - name: Get Code
+        uses: actions/download-artifact@v4
+#We want to use this inputs (line 16), we need to use a inputs context
+#We specify a inputs context - in this context object (inputs), we can access all inputs that are specified on line 17 (artifcat-name)
+#artifact-name - gives me the value for this input (line 17)
+        with: 
+          name: ${{ inputs.artifact-name }}
+#artifact-name used here as a name for the artifact I downloaded
+      - name: List files
+        run: ls
+#Verify if downloading the artifact worked
+      - name: Output information
+        run: echo 'Deploying & Uploading'
+
+      
+#This workflow will be used in a deploy job in a 8. Using reuse workflow workflow
