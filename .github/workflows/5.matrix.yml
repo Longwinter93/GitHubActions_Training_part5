@@ -2,6 +2,9 @@ name: Matrix Demo
 on: push
 jobs:
   build:
+#We add continue-on-error to continue execute jobs that are related to matrix - even if one of job combinations fails
+#It could happen that some jobs fails due to these combinations, for example node versions 12 does not support all features provided - it failed
+    continue-on-error: true
 #We add matrix - we can run the same job with different configurations for example different node versions, operatin system
     strategy:
       matrix:
@@ -30,3 +33,4 @@ jobs:
 #It allows us to run quickly the same job with different configurations
 #We can use it to test process that should run on different operating systems
 #To build applications against the different versions of node
+#On GitHub Actions it runs 6 jobs in parallel for this different combinations
