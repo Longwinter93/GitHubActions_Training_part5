@@ -19,6 +19,10 @@ on:
         required: false
         default: dist
         type: string
+#We can add secrets, specify values, required or not
+    #secrets:
+      #some-secret:
+        #required: true
 jobs:
   deploy:
     runs-on: ubuntu-latest 

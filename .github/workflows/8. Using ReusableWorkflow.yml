@@ -70,14 +70,18 @@ jobs:
 #Actions are used in steps. Currently, we intend to use an entire workflow which is combinations of steps or jobs
 #We use predefined workflow from our git and we need to reference it instead of an action
 #We define a path (a relative path in thr same repo) where we create a workflow that will be use
+#We can also use a path to a workflow defined in another repository
+#If this job runs, we use this workflow -> 7.ReusableWorkflows
     needs: build
     uses: ./.github/workflows/7.ReusableWorkflows.yml
 #under with we provide all the input values that must be provided
 #I expect artifact-name (from 7.ReusableWorkflows.yml) + provide a value that we use dist-files
+#We pass required input to this reusable workflow!
     with: 
       artifact-name: dist-files
-#We can also use a path to a workflow defined in another repository
-#If this job runs, we use this workflow -> 7.ReusableWorkflows
+#We can add secerts but we comment this out
+    #secrets: 
+      #some-secrets: ${{ secrets.some-secret }}   
   report:
     needs: [lint, deploy]
     if: failure()
