@@ -19,7 +19,7 @@ on:
         required: false
         default: dist
         type: string
-#We can add secrets, specify values, required or not
+#We can add secrets, specify values, required or not. We comment this out
     #secrets:
       #some-secret:
         #required: true

@@ -1,0 +1,44 @@
+name: Reusable Workflow - Deploy - Outputs
+on: 
+  workflow_call:
+    inputs:
+      artifact-name:
+        description: The name of the deployable artifact files
+        required: false
+        default: dist
+        type: string
+#We reference this outcome in  outputs:
+    outputs: 
+        result:
+          description: The result of the deployment operation 
+#We use jobs context - it allows us to get the output of the deploy job - it is outcome
+#The output of this deploy job the outcome output (line 24) is the result output (line 12) of this Workflow:
+          value: ${{ jobs.deploy.outputs.outcome }}
+#We can add secrets, specify values, required or not. We comment this out
+    #secrets:
+      #some-secret:
+        #required: true
+#We add outputs
+jobs:
+  deploy:
+    outputs: 
+#Define outputs with dynamic expressions & step context to reference to this set-result - unique id
+#THe output name -> outcome
+      outcome: ${{ steps.set-result.outputs.step-result }}
+    runs-on: ubuntu-latest 
+    steps:
+      - name: Get Code
+        uses: actions/download-artifact@v4
+        with: 
+          name: ${{ inputs.artifact-name }}
+      - name: List files
+        run: ls
+      - name: Output information
+        run: echo 'Deploying & Uploading'
+#Unique id = set-result to referece it to step context
+      - name: Set result output 
+        id: set-result
+        run: echo 'step-result=success' >> $GITHUB_OUTPUT
+
+      
+#This workflow will be used in a deploy job in a 8. Using reuse workflow workflow
