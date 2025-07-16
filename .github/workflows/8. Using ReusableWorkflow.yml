@@ -72,6 +72,10 @@ jobs:
 #We define a path (a relative path in thr same repo) where we create a workflow that will be use
     needs: build
     uses: ./.github/workflows/7.ReusableWorkflows.yml
+#under with we provide all the input values that must be provided
+#I expect artifact-name (from 7.ReusableWorkflows.yml) + provide a value that we use dist-files
+    with: 
+      artifact-name: dist-files
 #We can also use a path to a workflow defined in another repository
 #If this job runs, we use this workflow -> 7.ReusableWorkflows
   report:

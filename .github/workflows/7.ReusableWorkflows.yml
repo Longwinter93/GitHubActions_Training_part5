@@ -2,10 +2,10 @@ name: Reusable Workflow - Deploy
 #It allows this workflow to be called from other workflows
 #This workflows will be kicked off by GitHub Actions whenever a job deploy starts in a 7.ReusableWorkflows yml file
 #We can add additional information to it
-#We add inputs key - reversed key
+#We add inputs key - a reversed word
 #Under inputs we specify what this reusable workflow needs / add any inputs this reusable workflow needs
 #We can add any inputs we want
-#We expect artifact-name, description of it <- what exactly is expected
+#We expect artifact-name, description of it <- specify what exactly is expected
 #required - true - the value of artifact name is needed
 #required - false - this workflow can be called without providing a value
 #We can add a default value - for example dist - we assume that if we do not get any other artifact name (line 16)
@@ -23,6 +23,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest 
     steps:
+#We intend to download artifacts and use different artifact identifiers in different workflows
+#We look for artifacts, but we do not specify which ones. We need to avoid using hardcording and use dynamic
       - name: Get Code
         uses: actions/download-artifact@v4
 #We want to use this inputs (line 16), we need to use a inputs context
