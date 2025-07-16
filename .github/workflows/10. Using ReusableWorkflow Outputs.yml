@@ -96,3 +96,5 @@ jobs:
           echo "Something went wrong"
           echo "${{ toJSON(github) }}"
 
+#On the Github Action on this workflow, we can see on a print-deploy-result job this output result -> success
+#We use it from this 9.ReusableWorkflowsOutputs.yml file

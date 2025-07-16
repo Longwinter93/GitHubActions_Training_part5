@@ -1,5 +1,5 @@
 name: Reusable Workflow - Deploy
-#It allows this workflow to be called from other workflows
+#It allows this workflow to be called from other workflows thanks to workflow_call
 #This workflows will be kicked off by GitHub Actions whenever a job deploy starts in a 7.ReusableWorkflows yml file
 #We can add additional information to it
 #We add inputs key - a reversed word
