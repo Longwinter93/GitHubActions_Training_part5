@@ -41,8 +41,8 @@ jobs:
 #We add if conditions - Upload tests runs if a step Test code fails
 #we use steps context and reference to this step Test Code by using id run-tests to reach out this Test code step
 #We reference to the result of this outcome. 
-#According to this condition, a Upload test report step runs if a test code step fails
-#But, Upload test report does not run if a test code step succeeds
+#According to this condition, a Upload test report step runs if a Test code step fails
+#But, Upload test report does not run if a Test code step succeeds
 #A failure function - adding this function to this condition makes that GitHub action realizes that this step should be evaluated
 #If any steps or jobs failed before that step
 #a failure function returns True and this step context ensures that a Upload Test Report step runs if a Test Code step fails

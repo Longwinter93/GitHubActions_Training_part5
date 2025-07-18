@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-#To speed up this job, we ache the entire node_modules folder that is the local folder (created by running npm ci)
+#To speed up this job, we cache the entire node_modules folder that is the local folder (created by running npm ci)
 #It has all dependencies of this project in this folder
 #We do not want to run a npm ci step if we restore that folder
 jobs:
@@ -30,7 +30,7 @@ jobs:
 #We check if it not equal to true. If it is not true - we are not able to use the cache,
 #then I want to install dependencies manually again = run npm ci (install dependencies again)
 #However, if we have a cache-hit because it is equal to true
-#Thus, this step Install dependencies will be skipped with this condition, because we use dependencies from a node_moddules folder
+#Thus, this step Install dependencies will be skipped with this condition, because we use dependencies from a node_modules folder
 #which already exsits in repo
 #We put this on each job to use this extra condition
         run: npm ci

@@ -23,7 +23,7 @@ jobs:
   deploy:
     outputs: 
 #Define outputs with dynamic expressions & step context to reference to this set-result - unique id
-#THe output name -> outcome
+#The output name -> outcome
       outcome: ${{ steps.set-result.outputs.step-result }}
     runs-on: ubuntu-latest 
     steps:
@@ -41,4 +41,4 @@ jobs:
         run: echo 'step-result=success' >> $GITHUB_OUTPUT
 
       
-#This workflow will be used in a deploy job in a 8. Using reuse workflow workflow
+#This workflow will be used in a deploy job in a 10. Using ReusableWorkflow Outputs.yml workflow
